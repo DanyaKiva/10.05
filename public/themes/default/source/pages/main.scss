@@ -1,0 +1,454 @@
+@use '../common/vars' as *;
+@use '../common/mixins' as *;
+
+.main_header{
+  z-index: 10;
+  height: 100vh;
+  padding-top: 20px;
+  width: 100%;
+  @include image-2x('/themes/default/images/bg_1.jpg',' /themes/default/images/bg_1_2x.jpg');
+  position: relative;
+  @include clip-path-bottom;
+  &_logo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include translate(-50%,-50%);
+    &_link{
+      color: $mainBgColor;
+      background-color: transparentize(lighten($mainTextColor,25%), 0.25);
+      padding: 12px 24px;
+      font: $fontBefore;
+      display: block;
+      letter-spacing: 20px;
+      white-space: nowrap;
+      @include box-shadow(0, 0, 20px, 10px, $mainBgColor);
+      &:after{
+        content: '';
+        cursor: pointer;
+        margin-left: -20px;
+        @media #{$tablets-big} {
+          margin-left: -15px;
+        }
+        @media #{$tablets} {
+          margin-left: -10px;
+        }
+        @media #{$phones-big} {
+          margin-left: -5px;
+        }
+      }
+      @media #{$tablets-big} {
+        letter-spacing: 10px;
+      }
+      @media #{$tablets} {
+        letter-spacing: 10px;
+      }
+      @media #{$phones-big} {
+        font: $fontLogo;
+        letter-spacing: 5px;
+      }
+    }
+  }
+}
+
+.width_hide{
+  @media #{$phones-big} {
+    display: none;
+  }
+}
+
+.main_content{
+  flex: 1 0 auto;
+  margin: -20px auto;
+  padding: 0; // отступ для навигации, которая перекрывает контент на 60px
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+  @include clip-path-both;
+  & > section{
+    min-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    > h1 {
+      padding: 84px 0 10px 0;
+      font: $fontH1;
+      text-align: center;
+      color: $textColor;
+    }
+    > h2 {
+      font: $fontH2;
+      font-style: italic;
+      color: $textColor;
+      text-align: center;
+      padding: 15px 0;
+    }
+    > p{
+      width: 80%;
+      font: $fontText;
+      text-align: justify;
+      color: $textColor;
+      margin: 0 auto 20px auto;
+    }
+  }
+}
+
+.section_background_image {
+  width: 100%;
+  height: calc(100vh - 40vh);
+  position: relative;
+  @include clip-path-both;
+  &:before{
+    background-color: transparentize(lighten($mainTextColor,25%), 0.25);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include translate(-50%,-50%);
+    font: $fontBefore;
+    color: $mainBgColor;
+    letter-spacing: 20px;
+    padding: 12px 4px 12px 24px;
+    @include box-shadow(0, 0, 20px, 10px, $mainBgColor);
+    @media #{$phones-big}{
+      letter-spacing: 10px;
+      padding: 12px 14px 12px 24px;
+    }
+  }
+}
+
+.gallery{
+  width: 80%;
+  margin: 40px auto;
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr;
+  gap: 40px;
+
+  img{
+    width: 100%;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    object-fit: cover;
+    @include border-radius(4px);
+    @include box-shadow(0, 2px, 5px, 0, transparentize(lighten($mainTextColor, 25%), 0.25), false);
+    @include transition(all 0.3s ease);
+    @include border-radius(4px);
+    &:hover{
+      @include box-shadow(0, 2px, 9px, 2px, transparentize(lighten($mainTextColor, 25%), 0.25), false);
+    }
+  }
+  @media #{$tablets-big}{
+    grid-template: auto / 1fr 1fr;
+  }
+  @media #{$phones-big}{
+    grid-template: auto / 1fr;
+    width: 90%;
+    img{
+      height: 200px;
+    }
+  }
+}
+
+.section_about_nav{
+  min-height: 40vh;
+  width: 100%;
+  padding: 40px 10% 0 10%;
+  margin-bottom: 40px;
+  @include box-sizing(border-box);
+  display: grid;
+  grid-template: auto/1fr 1fr 1fr 1fr;
+  gap: 40px;
+  color: #777 !important;
+  position: relative;
+  align-items: center;
+  @media #{$desktop}{
+    grid-template: auto/1fr 1fr 1fr;
+  }
+  @media #{$tablets-big}{
+    grid-template: auto / 1fr 1fr;
+  }
+  @media #{$phones-big}{
+    gap: 10px;
+    padding: 20px 5% 0 5%;
+  }
+  &_block{
+    @media #{$phones-big}{
+      @include box-shadow(0,0,0,0,transparent);
+    }
+    position: relative;
+    padding: 6px;
+    @include box-sizing(border-box);
+    @include box-shadow(0, 2px, 5px, 0, transparentize(lighten($mainTextColor, 25%), 0.25), false);
+    @include transition(all 0.3s ease);
+    &:hover{
+      @include box-shadow(0, 2px, 9px, 2px, transparentize(lighten($mainTextColor, 25%), 0.25), false);
+      @media #{$phones-big}{
+        @include box-shadow(0,0,0,0,transparent);
+      }
+    }
+    &:hover > img{
+      opacity: 1;
+      @include transition(all 0.3s ease);
+    }
+    &:hover > p{
+      visibility: hidden;
+      opacity: 0;
+      top: -40px;
+      @include transition(all 0.2s ease);
+    }
+    h2 {
+      font: $fontH2;
+      text-align: center;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      @media #{$phones-big}{
+        display: none;
+      }
+    }
+    p {
+      padding: 8px;
+      font: $fontNewsShort;
+      text-align: justify;
+      text-indent: 30px;
+      margin: 0 auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 30px;
+      background-color: transparentize(lighten($mainTextColor, 25%), 0.25);
+      color: $mainBgColor;
+      z-index: 1;
+      @media #{$phones-big}{
+        display: none;
+      }
+    }
+    &_list{
+      @media #{$phones-big}{
+        position: static;
+      }
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      a{
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+        font: $fontH2;
+        color: $mainBgColor;
+        background-color: transparentize(lighten($mainTextColor, 50%), 0.50);
+        @include transition(all 0.2s ease);
+        &:hover{
+          background-color: transparentize(lighten($mainTextColor, 25%), 0.25);
+        }
+      }
+    }
+  }
+}
+
+.section_news {
+  &_grid {
+    min-height: 40vh;
+    width: 100%;
+    padding: 40px 10%;
+    @include box-sizing(border-box);
+    display: grid;
+    grid-template: auto / 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    color: $textColor !important;
+    position: relative;
+    align-items: center;
+    @media #{$tablets-big}{
+      grid-template: auto / 1fr 1fr 1fr;
+    }
+    @media #{$tablets}{
+      grid-template: auto / 1fr 1fr;
+    }
+    @media #{$phones-big}{
+      padding: 20px 5%;
+      gap: 20px;
+      grid-template: auto / 1fr;
+    }
+    &_item {
+      max-height: 449px;
+      position: relative;
+      padding: 6px;
+      @include box-sizing(border-box);
+      @include box-shadow(0, 2px, 5px, 0, transparentize(lighten($mainTextColor, 25%), 0.25), false);
+      @include transition(all 0.3s ease);
+      &:hover{
+        @include box-shadow(0, 2px, 9px, 2px, transparentize(lighten($mainTextColor, 25%), 0.25), false);
+      }
+      h2 {
+        font: $fontH2;
+        text-align: center;
+        max-height: 24px;
+        overflow: hidden;
+      }
+      img {
+        width: 100%;
+        height: 320px;
+
+        object-fit: cover;
+        opacity: 0.5;
+        @include transition(all 0.3s ease);
+        &:hover {
+          opacity: 1;
+        }
+        &:hover + p{
+          visibility: hidden;
+          opacity: 0;
+          top: -40px;
+          @include transition(all 0.2s ease);
+        }
+      }
+      p.short {
+        padding: 8px;
+        font: $fontNewsShort;
+        text-align: justify;
+        margin: 0 auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 30px;
+        background-color: transparentize(lighten($mainTextColor, 25%), 0.25);
+        color: $mainBgColor;
+        z-index: 1;
+      }
+      p.long{
+        text-indent: 30px;
+      }
+
+      em {
+        font: $fontAuthor;
+        display: block;
+        font-style: italic;
+      }
+
+      em.read_more {
+        @media #{$phones-big}{
+          display: inline;
+          float: right;
+        }
+        display: block;
+        text-align: right;
+        font-weight: bold;
+        @include transition(all 0.3s ease);
+        &:hover {
+          color: $textColor;
+        }
+      }
+    }
+    .add{
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &_new{
+        text-align: center;
+        font: $fontH2;
+      }
+    }
+  }
+}
+
+.section_contacts{
+  @include clip-path-both;
+  padding-bottom: 80px;
+  &_image {
+    @extend .section_background_image;
+    @include image-2x('/themes/default/images/bg_3.jpg',' /themes/default/images/bg_3_2x.jpg');
+    &:before{
+      content: 'CONTACTS';
+    }
+  }
+  &_grid{
+    min-height: 40vh;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 10% 10px 10%;
+    background-color: $mainBgColor;
+    @include box-sizing(border-box);
+    display: grid;
+    grid-template: auto / 2fr 3fr;
+    @media #{$tablets-big}{
+      width: 90%;
+      grid-template: 1fr 1fr / auto;
+    }
+    &_map{
+      margin: 20px;
+      @include box-shadow(0px, 0px, 0px, 6px, transparentize(lighten($mainTextColor,25%), 0.5), true);
+      @include box-sizing(border-box);
+      background-size: cover;
+      @media #{$tablets-big}{
+        margin: 20px 0;
+      }
+      iframe{
+        height: 100%;
+        width: 100%;
+      }
+    }
+    &_form{
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 12px;
+      a{
+        font: $fontContactsForm;
+        color: $textColor;
+      }
+      @media #{$tablets-big}{
+        margin: 20px 0;
+        max-width: 100%;
+      }
+      i{
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.line_block {
+  z-index: 20;
+  flex: 0 0 auto;
+  padding: 0 10%;
+  margin-bottom: -20px;
+  @include box-sizing(border-box);
+  height: 132px;
+  width: 100%;
+  background-color: lighten($mainTextColor, 50%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  color: $mainBgColor;
+  @include clip-path-both;
+  h3{
+    font: $fontStatsH3;
+    @media #{$phones}{
+      font: $fontStatsH3Small;
+    }
+  }
+  p{
+    font: $fontStatsP;
+    @media #{$phones}{
+      font: $fontStatsPSmall;
+    }
+  }
+}
